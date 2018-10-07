@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 1、创建增强和被增强对象 -->
+	<bean id="book1" class="cn.scut.aop.Book1"></bean>
+	<bean id="myBook" class="cn.scut.aop.MyBook"></bean>
+	<!-- 2、配置aop -->
+	<aop:config>
+		<!-- 2.1配置切入点 -->
+		<aop:pointcut expression="execution(* cn.scut.aop.Book1.show())" id="pointcut1"></aop:pointcut>
+		<!-- 2.2配置切面 -->
+		<!-- 把增强用到方法上-->
+		<aop:aspect ref="myBook">
+			<aop:before method="before" pointcut-ref="pointcut1"></aop:before>
+		</aop:aspect>
+	</aop:config>
+</beans>
